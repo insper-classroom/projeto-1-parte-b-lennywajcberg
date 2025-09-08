@@ -1,0 +1,51 @@
+<!-- filepath: c:\Users\lenny\Desktop\TecWeb\PROJETO 2\projeto-1-parte-b-lennywajcberg\notes\templates\notes\index.html -->
+{% extends "notes/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="appbar">
+  <img src="{% static 'notes/img/logo-getit.png' %}" class="logo" alt="Get-it" />
+  <span class="subtitle">Como o Post-it, mas com outro verbo</span>
+</div>
+
+<form method="post" class="form-card">
+  {% csrf_token %}
+  <input
+    class="form-card-title"
+    type="text"
+    name="titulo"
+    placeholder="Título"
+    required
+  />
+
+  <textarea
+    class="autoresize"
+    name="detalhes"
+    placeholder="Digite o conteúdo..."
+    required
+  ></textarea>
+
+  <input
+    class="form-card-title"
+    type="text"
+    name="tag"
+    placeholder="Tag (opcional)"
+  />
+
+  <button class="btn" type="submit">Criar</button>
+</form>
+
+<main class="container">
+  <div class="card-container">
+    {% for note in notes %}
+      <div class="card">
+        <div class="card-title">{{ note.title }}</div>
+        <div class="card-details">{{ note.details }}</div>
+        {% if note.tag %}
+          <div class="card-tag">{{ note.tag }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</main>
+{% endblock content %}
