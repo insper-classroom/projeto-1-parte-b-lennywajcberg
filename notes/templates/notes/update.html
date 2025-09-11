@@ -11,15 +11,26 @@
   {% csrf_token %}
   <input type="hidden" name="id" value="{{ note.id }}" />
 
-  <input class="form-card-title" type="text" name="title" placeholder="Título" value="{{ note.title }}" required />
+  <input
+    class="form-card-title"
+    type="text"
+    name="title"
+    placeholder="Título"
+    value="{{ note.title }}"
+    required
+  />
 
-  <textarea class="autoresize" name="content" placeholder="Digite o conteúdo..." required>{{ note.content }}</textarea>
-
-  <input class="form-card-title" type="text" name="tag" placeholder="Tag (opcional)" value="{{ note.tag }}" />
+  <textarea
+    class="autoresize"
+    name="content"
+    placeholder="Digite o conteúdo..."
+    required
+  >{{ note.content }}</textarea>
 
   <div class="form-actions">
     <a class="btn btn-secondary" href="{% url 'index' %}">Cancelar</a>
-    <button class="btn btn-primary" type="submit">Salvar</button>
+    <button class="btn btn-primary" type="submit">Atualizar</button>
   </div>
+
 </form>
 {% endblock content %}

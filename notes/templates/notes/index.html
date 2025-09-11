@@ -1,4 +1,3 @@
-<!-- filepath: c:\Users\lenny\Desktop\TecWeb\PROJETO 2\projeto-1-parte-b-lennywajcberg\notes\templates\notes\index.html -->
 {% extends "notes/base.html" %}
 {% load static %}
 
@@ -8,43 +7,42 @@
   <span class="subtitle">Como o Post-it, mas com outro verbo</span>
 </div>
 
+<!-- CRIAR -->
 <form method="post" class="form-card">
   {% csrf_token %}
-  <input
-    class="form-card-title"
-    type="text"
-    name="titulo"
-    placeholder="Título"
-    required
-  />
-
-  <textarea
-    class="autoresize"
-    name="detalhes"
-    placeholder="Digite o conteúdo..."
-    required
-  ></textarea>
-
-  <input
-    class="form-card-title"
-    type="text"
-    name="tag"
-    placeholder="Tag (opcional)"
-  />
-
+  <input class="form-card-title" type="text" name="titulo" placeholder="Título" required />
+  <textarea class="autoresize" name="detalhes" placeholder="Digite o conteúdo..." required></textarea>
   <button class="btn" type="submit">Criar</button>
 </form>
 
+<!-- LISTAR -->
 <main class="container">
   <div class="card-container">
     {% for note in notes %}
-      <div class="card">
-        <div class="card-title">{{ note.title }}</div>
-        <div class="card-details">{{ note.details }}</div>
-        {% if note.tag %}
-          <div class="card-tag">{{ note.tag }}</div>
-        {% endif %}
+      <div class="card card-color-1 card-rotation-2" style="position: relative;">
+        <div class="card-header">
+          <div class="card-title">{{ note.title }}</div>
+          <div class="card-actions">
+            <!-- EDITAR -->
+            <a class="note-edit" href="{% url 'update' note.id %}" title="Editar">
+              <img src="{% static 'notes/img/edit.png' %}" alt="Editar">
+            </a>
+            <!-- EXCLUIR -->
+            <form class="fav-form" method="post" action="{% url 'delete' note.id %}">
+              {% csrf_token %}
+              <button class="note-delete" type="submit" title="Excluir">
+                <img src="{% static 'notes/img/delete.png' %}" alt="Excluir">
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="card-content">
+          {{ note.content }}
+        </div>
       </div>
+    {% empty %}
+      <p>Sem anotações ainda.</p>
     {% endfor %}
   </div>
 </main>
