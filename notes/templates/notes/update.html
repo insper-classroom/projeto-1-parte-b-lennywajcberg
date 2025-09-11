@@ -1,0 +1,25 @@
+{% extends "notes/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="appbar">
+  <img src="{% static 'notes/img/logo-getit.png' %}" class="logo" alt="Get-it" />
+  <span class="subtitle">Editar anotação</span>
+</div>
+
+<form method="post" action="{% url 'update' note.id %}" class="form-card">
+  {% csrf_token %}
+  <input type="hidden" name="id" value="{{ note.id }}" />
+
+  <input class="form-card-title" type="text" name="title" placeholder="Título" value="{{ note.title }}" required />
+
+  <textarea class="autoresize" name="content" placeholder="Digite o conteúdo..." required>{{ note.content }}</textarea>
+
+  <input class="form-card-title" type="text" name="tag" placeholder="Tag (opcional)" value="{{ note.tag }}" />
+
+  <div class="form-actions">
+    <a class="btn btn-secondary" href="{% url 'index' %}">Cancelar</a>
+    <button class="btn btn-primary" type="submit">Salvar</button>
+  </div>
+</form>
+{% endblock content %}
