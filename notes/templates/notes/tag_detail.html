@@ -4,21 +4,12 @@
 {% block content %}
 <div class="appbar">
   <img src="{% static 'notes/img/logo-getit.png' %}" class="logo" alt="Get-it" />
-  <span class="subtitle">Como o Post-it, mas com outro verbo</span>
+  <span class="subtitle">#{{ tag.name }}</span>
   <div class="appbar-spacer"></div>
   <a class="appbar-link" href="{% url 'tag_list' %}">Todas as tags</a>
+  <a class="appbar-link" href="{% url 'index' %}">Início</a>
 </div>
 
-<!-- CRIAR -->
-<form method="post" class="form-card">
-  {% csrf_token %}
-  <input class="form-card-title" type="text" name="titulo" placeholder="Título" required />
-  <textarea class="autoresize" name="detalhes" placeholder="Digite o conteúdo..." required></textarea>
-  <input class="form-card-title" type="text" name="tag" placeholder="Adicione uma tag (opcional)" />
-  <button class="btn" type="submit">Criar</button>
-</form>
-
-<!-- LISTAR -->
 <main class="container">
   <div class="card-container">
     {% for note in notes %}
@@ -26,9 +17,11 @@
         <div class="card-header">
           <div class="card-title">{{ note.title }}</div>
           <div class="card-actions">
+            <!-- EDITAR -->
             <a class="note-edit" href="{% url 'update' note.id %}" title="Editar">
               <img src="{% static 'notes/img/edit.png' %}" alt="Editar">
             </a>
+            <!-- EXCLUIR -->
             <form class="fav-form" method="post" action="{% url 'delete' note.id %}">
               {% csrf_token %}
               <button class="note-delete" type="submit" title="Excluir">
@@ -45,8 +38,13 @@
         {% endif %}
       </div>
     {% empty %}
-      <p>Sem anotações ainda.</p>
+      <p>Não há anotações com a tag <strong>#{{ tag.name }}</strong>.</p>
     {% endfor %}
   </div>
+
+  {% comment %}
+    <a class="btn" href="{% url 'tag_list' %}">Voltar para todas as tags</a>
+    <a class="btn" href="{% url 'index' %}">Ir para a página inicial</a>
+  {% endcomment %}
 </main>
-{% endblock content %}
+{% endblock %}

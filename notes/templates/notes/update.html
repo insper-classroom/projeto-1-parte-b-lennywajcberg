@@ -4,8 +4,11 @@
 {% block content %}
 <div class="appbar">
   <img src="{% static 'notes/img/logo-getit.png' %}" class="logo" alt="Get-it" />
-  <span class="subtitle">Editar anotação</span>
+  <span class="subtitle">Como o Post-it, mas com outro verbo</span>
+  <div class="appbar-spacer"></div>
+  <a class="appbar-link" href="{% url 'tag_list' %}">Todas as tags</a>
 </div>
+
 
 <form method="post" action="{% url 'update' note.id %}" class="form-card">
   {% csrf_token %}
@@ -27,10 +30,18 @@
     required
   >{{ note.content }}</textarea>
 
+  <!-- NOVO: campo para editar a tag -->
+  <input
+    class="form-card-title"
+    type="text"
+    name="tag"
+    placeholder="Adicione uma tag (opcional)"
+    value="{% if note.tag %}{{ note.tag.name }}{% endif %}"
+  />
+
   <div class="form-actions">
     <a class="btn btn-secondary" href="{% url 'index' %}">Cancelar</a>
     <button class="btn btn-primary" type="submit">Atualizar</button>
   </div>
-
 </form>
 {% endblock content %}

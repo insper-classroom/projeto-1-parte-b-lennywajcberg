@@ -20,7 +20,7 @@ html, body { font-family: "Roboto", sans-serif; }
 }
 
 .card-container{
-  display:flex; flex-wrap:wrap; justify-content:space-evenly; gap:20px; margin-top:20px;
+  display:flex; flex-wrap:wrap; justify-content:center; gap:20px; margin-top:20px;
 }
 .card{
   width:160px; height:72px; min-height:50px; padding:10px;
@@ -57,7 +57,11 @@ html, body { font-family: "Roboto", sans-serif; }
   position:relative; display:block; padding:10px 15px; overflow:hidden;
   border:0; outline:none; border-radius:2px; box-shadow:0 1px 4px rgba(0,0,0,0.6);
   background-color:#f7d736; transition:background-color .3s;
+  /* garantir mesma fonte do botfo "Criar" e remover sublinhado de links */
+  font-family: inherit;
+  text-decoration: none;
 }
+.btn, .btn:visited { color:#2c2c2c; text-decoration:none; }
 .btn > *{ position:relative; }
 .btn:before{
   content:""; position:absolute; top:50%; left:50%; display:block; width:0; padding-top:0;
@@ -91,3 +95,40 @@ html, body { font-family: "Roboto", sans-serif; }
 .note-edit:active, .note-delete:active{ transform:scale(0.98); }
 
 .fav-form{ display:inline-flex; }
+
+
+/* Badge de tag estilo "pílula" (igual ao print) */
+.tag-badge{
+  display:inline-block;
+  margin-top:6px;
+  padding:4px 12px;
+  border-radius:9999px;           /* pílula */
+  background:#f7d736;             /* amarelo */
+  color:#111;                     /* texto escuro */
+  text-decoration:none;
+  font-family:'Permanent Marker', cursive;
+  font-size:14px;
+  font-weight:700;
+  line-height:1;
+  box-shadow:0 2px 6px rgba(0,0,0,0.15);
+  text-transform:uppercase;       /* #COMIDA */
+}
+.tag-badge:hover{ transform:translateY(-1px); }
+.tag-badge:active{ transform:translateY(0); }
+
+
+.appbar { display:flex; align-items:center; } /* já está, mas garantimos */
+.appbar-spacer { flex:1; }                    /* empurra o link pra direita */
+
+.appbar-link {
+  margin-right:12px;
+  background:#fff;
+  color:#2c2c2c;
+  padding:8px 12px;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:bold;
+  box-shadow:0 4px 8px rgba(0,0,0,0.12);
+}
+.appbar-link:hover{ transform:translateY(-1px); }
+.container{ max-width: 960px; margin:24px auto; padding:0 12px; }
