@@ -56,6 +56,7 @@ def update(request, pk):
 
     return render(request, 'notes/update.html', {'note': note})
 
+
 def delete(request, pk):
     """
     POST -> apaga a nota e volta pra home
